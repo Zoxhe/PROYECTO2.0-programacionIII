@@ -8,7 +8,7 @@ const firebaseConfig = {
     storageBucket: "final-proyecto-programacion3.appspot.com",
     messagingSenderId: "668834513253",
     appId: "1:668834513253:web:123e62e3d2428b76f8a18c"
-};
+};dsdsd
 
 app.initializeApp(firebaseConfig);
 
