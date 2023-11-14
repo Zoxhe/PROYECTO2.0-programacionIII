@@ -21,7 +21,7 @@ class Home extends Component {
         //Para poder traer la base de datos y los posteos, hacemos lo siguiente:
         //COLLECTION ES LA TABLA (EJ: USUARIOS, POSTEOS, LO QUE FUERA)
         //DOCS/doc es cada uno de los usuarios o posteos que esten dentro
-        db.collection("posts").orderyBy("CreatedAt", "desc").onSnapshot(
+        db.collection("posts").orderBy("CreatedAt", "desc").onSnapshot(
             //Ahora tenemos que hacer es la logica interna del onSnapshot
             // creo variable con info importante de posteos y lo meto en el array "posteos"
 

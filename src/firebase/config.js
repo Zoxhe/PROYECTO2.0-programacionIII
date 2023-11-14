@@ -2,13 +2,14 @@ import app from "firebase/app";
 import firebase from "firebase";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDHffFkr3Bkwl-_vPghJZ7N15eNAKRWKC0",
-    authDomain: "final-proyecto-programacion3.firebaseapp.com",
-    projectId: "final-proyecto-programacion3",
-    storageBucket: "final-proyecto-programacion3.appspot.com",
-    messagingSenderId: "668834513253",
-    appId: "1:668834513253:web:123e62e3d2428b76f8a18c"
-};dsdsd
+    apiKey: "AIzaSyD05jaSOhBjcYRsNKtmg9oJa1l3SlJXq3Q",
+    authDomain: "proyectoprogratres.firebaseapp.com",
+    projectId: "proyectoprogratres",
+    storageBucket: "proyectoprogratres.appspot.com",
+    messagingSenderId: "542071094771",
+    appId: "1:542071094771:web:16cb54956dcecbca6a2686"
+  };
+  
 
 app.initializeApp(firebaseConfig);
 

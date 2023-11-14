@@ -126,7 +126,7 @@ render(){
 
 }
 
-const styles = styleSheet.create({
+const styles = StyleSheet.create({
     imagen: {
         height: "50vh",
         width: "50vh",
