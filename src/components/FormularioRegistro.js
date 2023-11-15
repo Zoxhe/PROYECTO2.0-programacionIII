@@ -82,7 +82,8 @@ class FormularioRegistro extends Component {
 const Style = StyleSheet.create({
     contenedor: {
         flex: 1,
-    }
+    },
+    
 });
 
 export default FormularioRegistro;

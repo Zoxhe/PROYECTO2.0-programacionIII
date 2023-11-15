@@ -1,119 +1,124 @@
-import React, {Component} from "react"; 
-import {Camera} from "expo-camera"
+import React, {Component} from 'react';
+import {Camera } from 'expo-camera';
 import {storage} from "../firebase/config"
-import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native"
+import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 
-class Camara extends Component { 
+class Camara extends Component{
     constructor(props){
-        super(props)
+        super(props);
         this.state = {
-            permiso: false, 
-            mostrarCamara: true, 
-            url: ""
-        }
-        this.metodosCamara = ""
+            permiso: false,
+            mostrarCamera: true,
+            urlTemporal:''
+       }
+
+        this.metodosCamara = ''
     }
 
     componentDidMount(){
-
+      
         Camera.requestCameraPermissionsAsync()
-        .then(()=> {
-            this.setState({
+            .then( () =>   { this.setState({
                 permiso: true
-            })
-        }).catch(error => console.log(error))
+            })})
+        
+            .catch( e => console.log(e))
     }
 
-
-    sacarFoto(){
+    Fotografiar(){
+     
         this.metodosCamara.takePictureAsync()
-        .then(foto => {
-            this.setState({
-                url: foto.uri,
-                mostrarCamara: false,
+            .then( foto => {
+                this.setState({
+                    urlTemporal: foto.uri,
+                    mostrarCamera: false
+                })
             })
-        }).catch(error => console.log(error))
+            .catch( e => console.log(e))
     }
 
     guardar(){
-        fetch(this.state.url)
-        .then(res=> res.blob()).then(img => {
-            const refStorage = storage.ref(`photos/${Date.now()}.jpg`);
-            refStorage.put(img)
-            .then(()=>{
-                refStorage.getDownloadURL()
-                .then(url => this.props.onImageUpload(url))
+        fetch(this.state.urlTemporal)
+    .then(res => res.blob())
+            .then( img => { 
+           
+                const refStorage = storage.ref(`photos/${Date.now()}.jpg`);
+                refStorage.put(img)
+                    .then(()=>{
+                        refStorage.getDownloadURL() 
+                        .then( url => this.props.onImageUpload(url))
+                    })
             })
-        })
-        .catch(e => console.log(e))
+            .catch(e => console.log(e))
     }
 
+    cancelar (){
 
-    rechazar(){
         this.setState({
-            url: "",
-            mostrarCamara: true
+            urlTemporal: '',
+            mostrarCamera: true
         })
     }
 
-
-render(){
-    <View>
-        {
-           this.state.permiso ?  
-            this.state.mostrarCamara ?
-                <View style={styles.cuerpoCamara}>
-                    <TouchableOpacity onPress={()=>this.sacarFoto()}>
-                        Sacar foto
-                    </TouchableOpacity>
-                    <Camera
-                    style={styles.cuerpoCamara}
-                    type = {Camera.Constants.Type.front}
-                    ref = { metodosCamara => this.metodosCamara = metodosCamara}
-                    />
-                </View>
-            :
+    render(){
+        return(
             <View>
-                <TouchableOpacity onPress={()=>this.rechazar()}>
-                       Rechazar
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={()=>this.guardar()}>
-                        Guardar
-                    </TouchableOpacity>
-
-                    <Image
-                    style={styles.preview}
-                    source={{uri: this.state.url}}
-                    resizeMode= "cover"
-                    />
+            {
+                this.state.permiso ? 
+                this.state.mostrarCamera ?
+                    <View style={styles.cameraBody}>
+                        <TouchableOpacity style={styles.button} onPress={()=>this.Fotografiar()}>
+                            <Text style= {styles.boton}>Sacar foto</Text>
+                        </TouchableOpacity>
+                        <Camera
+                            style={styles.cameraBody}
+                            type = {Camera.Constants.Type.front}
+                            ref={metodosCamara => this.metodosCamara = metodosCamara }
+                        />
+                    </View>
+                :
+                <View>
+                        <TouchableOpacity style={styles.button} onPress={()=>this.cancelar()}>
+                            <Text style= {styles.boton}>Cancelar</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.button} onPress={()=>this.guardar()}>
+                            <Text style= {styles.boton}>Aceptar</Text>
+                        </TouchableOpacity>
+                        <Image 
+                            style={styles.preview}
+                            source={{uri: this.state.urlTemporal}}
+                            resizeMode='cover'
+                        />
+                    </View>
+                
+                :
+                    <Text>No hay permisos</Text>
+            }
             </View>
-            :
-            <Text>
-                Permitir acceso a la camara para sacar la foto
-            </Text>
-
-
-        }
-    </View>
-}
-
-
-
-}
-
-const styles = StyleSheet.create({
-
-    cuerpoCamara: {
-        height: "100vh",
-        width: "100vh",
-    },
-
-    preview: {
-        height: "100vh",
-        width: "100vh"
+        )
     }
 
+}
+const styles = StyleSheet.create({
+    cameraBody: {
+        height: '80vh',
+        width: '80vw',
+    },
+    boton: {
+        fontSize: 14,
+        margin: 10,
+        backgroundColor: 'rgb(234,252,255)',
+        borderRadius: 10,
+        textAlign: 'center',
+        padding: 5,
+        fontFamily: 'Courier'
+    },
+    preview:
+    {
+        height: '80vh',
+        width: '80vw',
+    },
+}) 
 
-})
 
-export default Camara
+export default Camara;
