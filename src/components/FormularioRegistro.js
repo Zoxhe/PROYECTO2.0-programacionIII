@@ -49,19 +49,19 @@ class FormularioRegistro extends Component {
         return(
             <View>
                 <Text>Registrarse</Text>
-                <Text>Correo electrónico</Text>
+                
                 <TextInput placeholder="Email" onChangeText={(email) => this.setState({ email })} />
 
-                <Text>Contraseña</Text>
+               
                 <TextInput placeholder="Password" onChangeText={(password) => this.setState({ password })} />
 
-                <Text>Nombre de usuario</Text>
+               
                 <TextInput placeholder="Usuario" onChangeText={(nombre) => this.setState({ nombre })} />
 
-                <Text>Bio</Text>
+                
                 <TextInput placeholder="Bio" onChangeText={(miniBio) => this.setState({ miniBio })} />
                 
-                <Text>Foto de perfil</Text>
+
                 <TextInput placeholder="Foto de perfil" onChangeText={(fotoPerfil) => this.setState({ fotoPerfil })} />
 
 

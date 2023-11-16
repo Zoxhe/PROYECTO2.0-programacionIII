@@ -24,7 +24,7 @@ class CrearPosteo extends Component {
 
 onImageUpload(url){
     this.setState({
-        foto: "",
+        foto: url,
         mostrarCamara: false 
     })
 }

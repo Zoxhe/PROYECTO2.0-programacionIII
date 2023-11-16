@@ -3,7 +3,6 @@ import firebase from "firebase"
 import {db, auth} from "../firebase/config"
 import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList } from "react-native";
 
-//Import { FontAwesome} from "@expo/vector-icons"
 
 
 class Posteo extends Component { 
@@ -101,7 +100,7 @@ render(){
 </View>
 <View>
 
- <TouchableOpacity onPress={()=>this.props.navigation.navigate("Comentarios", {id:this.props.posteoData.id})}>
+ <TouchableOpacity onPress={()=>this.props.navigation.navigate("Comments", {id:this.props.posteoData.id})}>
  </TouchableOpacity>
  <Text>Comentarios: {this.state.comentarios.length}</Text>
 
@@ -128,8 +127,8 @@ render(){
 
 const styles = StyleSheet.create({
     imagen: {
-        height: "50vh",
-        width: "50vh",
+        height: "70vh",
+        width: "70vh",
     }
 })
 

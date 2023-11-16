@@ -2,9 +2,9 @@ import React, {Component} from "react";
 import {db} from "../firebase/config"
 import { View, Text, StyleSheet, FlatList } from "react-native";
 
-
 //Este posteo no es el de crear, es el que hace el diseño de cada uno
-import Posteo from "./Posteo";
+import Posteo from "./Posteo"
+import { ImageBackground } from "react-native-web";
 
 
 class Home extends Component { 
@@ -62,7 +62,8 @@ render(){
 
 const styles = StyleSheet.create({
     contenedor: {
-        flex: 1
+        flex: 1,
+        backgroundColor: "rgb(255,255,255)"
     },
 })
 
