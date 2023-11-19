@@ -9,7 +9,7 @@ import Home from '../screens/Home';
 import BuscadorUsuarios from '../screens/BuscadorUsuarios';
 import CrearPosteo from '../screens/CrearPosteo';
 import MiPerfil from '../screens/MiPerfil';
-
+import PerfilUsuario from '../screens/PerfilUsuario';
 const Tab = createBottomTabNavigator();
 
 class NavegacionTab extends Component {
@@ -39,8 +39,8 @@ class NavegacionTab extends Component {
                 <Tab.Screen name="MiPerfil" component={MiPerfil} options={
                     {tabBarIcon: ({color, size}) => (
                         <Foundation name="torso" color={color} size={size} />
-                    )}
-                }/>
+                    )}      
+                }/>    
             </Tab.Navigator>
         )
     }
