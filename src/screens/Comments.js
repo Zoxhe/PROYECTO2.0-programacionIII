@@ -4,7 +4,7 @@ import {db, auth} from "../firebase/config"
 import {Text, View, StyleSheet, TextInput, TouchableOpacity, Flatlist} from "react-native"
 
 
-class Comments extends Components { 
+class Comments extends Component { 
     constructor(props){
         super(props)
         this.state = {

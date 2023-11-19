@@ -61,6 +61,14 @@ onImageUpload(url){
     }
 
 
+    componentWillUnmount() {
+        // Restablecer el estado de la cámara cuando el componente se desmonta
+        this.setState({
+          mostrarCamara: true,
+        });
+      }
+
+    
 //Esto va a tener sentido si tenemos funcionando la camara
 
 //Ahora vamos a renderizar los datos con Render//
@@ -97,5 +105,3 @@ render(){
 
 }
 export default CrearPosteo;
-
-

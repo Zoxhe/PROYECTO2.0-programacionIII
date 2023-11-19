@@ -20,7 +20,7 @@ class Posteo extends Component {
 
          //Chequear que mi like en un posteo como usuario no se pueda volver a poner
 
-            if(this.props.posteoData.likes.includes(auth.currentUser.email)){
+            if(this.props.posteoData.data.likes.includes(auth.currentUser.email)){
                 this.setState({
                     miLike: true
                 })
@@ -84,35 +84,46 @@ render(){
     <Text>{this.props.posteoData.data.descripcion}</Text>
             </View>
 
-<View>
+
 
     {
         this.state.miLike ?
-        <TouchableOpacity onPress={()=>this.dislike}>
+        <TouchableOpacity onPress={()=>this.dislike()}>
+                likear
         </TouchableOpacity>
         :
-        <TouchableOpacity onPress={()=>this.like}>
+        <TouchableOpacity onPress={()=>this.like()}>
+            dislikear
         </TouchableOpacity>
     }
      <Text>Likes: {this.state.numeroLikes}</Text>
     
     
-</View>
-<View>
 
- <TouchableOpacity onPress={()=>this.props.navigation.navigate("Comments", {id:this.props.posteoData.id})}>
- </TouchableOpacity>
- <Text>Comentarios: {this.state.comentarios.length}</Text>
+<Text>Comentarios: {this.state.comentarios.length}</Text>
 
-    
-</View>
 
 <FlatList
         data={this.state.comentarios.slice(0,3)}
-        keyExtractor={oneComment => oneComment.id.string()}
+        keyExtractor={oneComment => oneComment.createdAt.toString()}
         renderItem={({item}) =>   <Text>{item.email}: {item.comentario} </Text>  }        
         />
+
+
+
+<View>
+
+
+<TouchableOpacity onPress={()=>this.props.navigation.navigate("Comments", {id:this.props.posteoData.id})}>
+
+Ver todos los comentarios 
+</TouchableOpacity>
+
+   
 </View>
+</View>
+
+
         
 
     )
