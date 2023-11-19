@@ -1,107 +1,126 @@
 import React, { Component } from "react";
 import { auth, db, storage } from "../firebase/config";
 import { View, Text, TouchableOpacity, TextInput, StyleSheet } from "react-native";
-import { render } from "react-dom";
+import Camara from "../components/Camara";
 
-//Importar camara para linkearla y poder usarla aca! //
-import Camara from "../components/Camara"
+class CrearPosteo extends Component {
+  constructor() {
+    super();
+    this.state = {
+      foto: "",
+      descripcion: "",
+      createdAt: "",
+      mostrarCamara: true,
+      likes: [],
+      comentarios: [],
+    };
+  }
 
-
-class CrearPosteo extends Component { 
-    constructor(){
-        super()
-        this.state = {
-                foto: "",
-                descripcion: "",
-                createdAt: "",
-                mostrarCamara: true, 
-                likes:[],
-                comentarios:[] 
-        }
-    }
-
-//OnImageUpload(url)
-
-onImageUpload(url){
+  onImageUpload(url) {
     this.setState({
-        foto: url,
-        mostrarCamara: false 
-    })
-}
+      foto: url,
+      mostrarCamara: false,
+    });
+  }
 
-
-//Postear//
-    postear() {
-        db.collection("posts").add(
-            { 
-                foto: this.state.foto,
-                email: auth.currentUser.email,
-                descripcion: this.state.descripcion,
-                likes: this.state.likes,
-                comentarios: this.state.comentarios,
-                createdAt: Date.now()
-              }
-
-        )
-
-//Si se llega a poder crear el usuario quiero de vuelta todos los campos vacios, entonces los limpio con set State
-        .then(()=>{
-            this.setState({
-                foto: "",
-                descripcion: "",
-                createdAt: "",
-                mostrarCamara: true, 
-                likes:[],
-                comentarios:[] 
-            })
-
-            //Despues de todo, me redirige//
-            this.props.navigation.navigate("Home")
-        }). catch(error => console.log(error))
-    }
-
-
-    componentWillUnmount() {
-        // Restablecer el estado de la cámara cuando el componente se desmonta
+  postear() {
+    db.collection("posts")
+      .add({
+        foto: this.state.foto,
+        email: auth.currentUser.email,
+        descripcion: this.state.descripcion,
+        likes: this.state.likes,
+        comentarios: this.state.comentarios,
+        createdAt: Date.now(),
+      })
+      .then(() => {
         this.setState({
+          foto: "",
+          descripcion: "",
+          createdAt: "",
           mostrarCamara: true,
+          likes: [],
+          comentarios: [],
         });
-      }
 
-    
-//Esto va a tener sentido si tenemos funcionando la camara
+        this.props.navigation.navigate("Home");
+      })
+      .catch((error) => console.log(error));
+  }
 
-//Ahora vamos a renderizar los datos con Render//
+  componentWillUnmount() {
+    // Restablecer el estado de la cámara cuando el componente se desmonta
+    this.setState({
+      mostrarCamara: true,
+    });
+  }
 
-render(){ 
-    return(
-        <View>
-        <Text>Crear un posteo</Text>
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.titulo}>Crear un posteo</Text>
 
-        <View>
-            {
-                this.state.mostrarCamara ?
-                <Camara onImageUpload={url => this.onImageUpload(url)}/> 
-                :
-                <View>
-                    <TextInput 
-                    placeholder="descripcion"
-                    keyboardType="default"
-                    onChangeText={text => this.setState({ descripcion: text })} 
-                    value= {this.state.descripcion}
-                    />
+        <View style={styles.seccionCamara}>
+          {this.state.mostrarCamara ? (
+            <Camara onImageUpload={(url) => this.onImageUpload(url)} />
+          ) : (
+            <View style={styles.seccionDescripcion}>
+              <TextInput
+                style={styles.inputDescripcion}
+                placeholder="Descripción"
+                keyboardType="default"
+                onChangeText={(text) => this.setState({ descripcion: text })}
+                value={this.state.descripcion}
+                multiline={true}
+              />
 
-                    <TouchableOpacity onPress={()=>this.postear()}>Postear</TouchableOpacity>
-
-                </View>
-            }
+              <TouchableOpacity style={styles.botonPostear} onPress={() => this.postear()}>
+                <Text style={styles.textoBotonPostear}>Postear</Text>
+              </TouchableOpacity>
+            </View>
+          )}
         </View>
-
-       
-        
-    </View>
-    )
+      </View>
+    );
+  }
 }
 
-}
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  titulo: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 20,
+  },
+  seccionCamara: {
+    alignItems: "center",
+  },
+  seccionDescripcion: {
+    width: "80%",
+    marginTop: 20,
+  },
+  inputDescripcion: {
+    borderColor: "#ddd",
+    borderWidth: 1,
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 10,
+    textAlignVertical: "top",
+  },
+  botonPostear: {
+    backgroundColor: "#3498db",
+    padding: 15,
+    borderRadius: 5,
+  },
+  textoBotonPostear: {
+    color: "#fff",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+});
+
 export default CrearPosteo;
