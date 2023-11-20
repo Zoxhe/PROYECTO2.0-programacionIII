@@ -79,12 +79,15 @@ class Comments extends Component {
   }
 }
 
+// ...
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 10,
-    backgroundColor: "#fff",
-  },
+    container: {
+      flex: 1,
+      padding: 10,
+      backgroundColor: "#FFC0CB",  // Cambia el color de fondo a rosa
+    },
+  
   backButton: {
     backgroundColor: "#3897f1",
     padding: 10,
@@ -106,10 +109,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     marginBottom: 10,
+    
+    
   },
   commentText: {
     fontSize: 16,
     marginBottom: 10,
+    
   },
   commentInput: {
     fontSize: 16,
@@ -118,6 +124,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#ddd",
     borderRadius: 5,
+    
+    
+    
   },
   postCommentButton: {
     backgroundColor: "#3897f1",

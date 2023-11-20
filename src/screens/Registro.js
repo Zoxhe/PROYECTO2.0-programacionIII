@@ -27,4 +27,5 @@ class Registro extends Component {
     }
 }
 
+
 export default Registro;

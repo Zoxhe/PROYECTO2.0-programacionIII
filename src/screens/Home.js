@@ -12,7 +12,6 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        // Cambié 'CreatedAt' a 'createdAt' para que coincida con tu código en CrearPosteo
         db.collection("posts").orderBy("createdAt", "desc").onSnapshot(
             (docs) => {
                 let posts = [];
@@ -50,8 +49,10 @@ class Home extends Component {
 const styles = StyleSheet.create({
     contenedor: {
         flex: 1,
-        backgroundColor: "rgb(255,255,255)",
+        backgroundColor: "#F5B7B1", // Color de fondo
+        padding: 10,
     },
+    // Puedes agregar más estilos según tus necesidades
 });
 
 export default Home;

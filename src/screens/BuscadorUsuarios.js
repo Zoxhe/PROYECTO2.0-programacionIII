@@ -98,10 +98,10 @@ class BuscadorUsuarios extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'rgb(255,255,255)',
-    padding: 15,
+    container: {
+      flex: 1,
+      backgroundColor: 'pink', 
+      padding: 15,
   },
   formularioBusqueda: {
     backgroundColor: 'rgb(240, 240, 240)',
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     color: 'rgb(150, 150, 150)',
   },
   lista: {
-    backgroundColor: 'rgb(240, 240, 240)',
+    backgroundColor: 'F5B7B1',
     fontFamily: 'Courier',
     fontSize: 16,
     margin: 8,

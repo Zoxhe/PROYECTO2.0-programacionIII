@@ -86,41 +86,44 @@ class CrearPosteo extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  titulo: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 20,
-  },
-  seccionCamara: {
-    alignItems: "center",
-  },
-  seccionDescripcion: {
-    width: "80%",
-    marginTop: 20,
-  },
-  inputDescripcion: {
-    borderColor: "#ddd",
-    borderWidth: 1,
-    borderRadius: 5,
-    padding: 10,
-    marginBottom: 10,
-    textAlignVertical: "top",
-  },
-  botonPostear: {
-    backgroundColor: "#3498db",
-    padding: 15,
-    borderRadius: 5,
-  },
-  textoBotonPostear: {
-    color: "#fff",
-    textAlign: "center",
-    fontWeight: "bold",
-  },
-});
-
-export default CrearPosteo;
+    container: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: "#ffcccb", 
+    },
+    titulo: {
+      fontSize: 20,
+      fontWeight: "bold",
+      marginBottom: 20,
+    },
+    seccionCamara: {
+      alignItems: "center",
+    },
+    seccionDescripcion: {
+      width: "80%",
+      marginTop: 20,
+    },
+    inputDescripcion: {
+      borderColor: "#ddd",
+      borderWidth: 1,
+      borderRadius: 5,
+      padding: 10,
+      marginBottom: 10,
+      textAlignVertical: "top",
+    },
+    botonPostear: {
+      backgroundColor: "#3498db",
+      padding: 15,
+      borderRadius: 5,
+    },
+    textoBotonPostear: {
+      color: "#fff",
+      textAlign: "center",
+      fontWeight: "bold",
+    },
+  });
+  
+  // ... (tu código posterior)
+  
+  export default CrearPosteo;

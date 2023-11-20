@@ -160,20 +160,23 @@ class MiPerfil extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-  },
+    container: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: 20,
+      backgroundColor: 'pink', // Cambia 'pink' al color de fondo que desees
+    },
   header: {
     flexDirection: 'row',
     paddingTop: 40,
+    
   },
   title: {
     fontFamily: 'Courier',
     fontSize: 18,
     marginLeft: 10,
+    
   },
   info: {
     fontFamily: 'Courier',
@@ -181,31 +184,41 @@ const styles = StyleSheet.create({
     margin: 4,
     paddingLeft: 12,
     color: 'rgb(115, 115, 115)',
+    
+    
   },
   bio: {
     fontFamily: 'Courier',
     fontSize: 13,
     margin: 4,
     paddingLeft: 12,
+    
   },
   fotoPerfil: {
     width: 115,
     height: 115,
     marginLeft: 15,
     borderRadius: 57.5,
+    
   },
+  
   aviso: {
     fontFamily: 'Courier',
     fontSize: 13,
     marginTop: 10,
+    color: 'rgb(115, 115, 115)',
+    
+    
   },
   foto:{
     width: 115,
     height: 115,
     marginLeft: 15,
+    
   },
   contenedordefoto:{
     marginVertical: 20, 
+    
   }
 });
 
