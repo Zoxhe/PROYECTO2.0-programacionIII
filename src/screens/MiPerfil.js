@@ -123,7 +123,7 @@ class MiPerfil extends Component {
           </View>
         </View>
 
-        <Text>Posteos:</Text>
+        <Text style={styles.title}>Posteos:</Text>
         {this.state.arrayPosteos.length >= 1 ? (
           <FlatList
             data={this.state.arrayPosteos}
@@ -149,7 +149,7 @@ class MiPerfil extends Component {
         )}
 
         <TouchableOpacity onPress={() => this.signOut()}>
-          <Text>Cerrar sesión</Text>
+          <Text style={styles.title}>Cerrar sesión</Text>
         </TouchableOpacity>
         <TextInput  placeholder="Constraseña Nueva" secureTextEntry={true} value= {this.state.nuevaPassword} onChangeText={text => {this.setState({ nuevaPassword:text })}} />
         <TouchableOpacity  style={styles.borrar} onPress={()=>this.cambiarContra()}>
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
       padding: 20,
-      backgroundColor: 'pink', // Cambia 'pink' al color de fondo que desees
+      backgroundColor: 'pink', 
     },
   header: {
     flexDirection: 'row',
@@ -177,16 +177,20 @@ const styles = StyleSheet.create({
     fontFamily: 'Courier',
     fontSize: 18,
     marginLeft: 10,
+    backgroundColor: 'white',
+    padding: 8,
+    borderRadius: 10,
+    marginTop: 35,
+    
     
   },
   textButton: {
     fontFamily: 'Courier',
-    
-    marginTop: 10,
-    color: 'rgb(115, 115, 115)',
-    fontSize: 15,
-      fontWeight: 'bold',
-      marginBottom: 10,
+    backgroundColor: 'white',
+    padding: 15,
+    borderRadius: 10,
+    alignSelf: 'center',
+    marginTop: 25,
 
   },
   info: {
@@ -196,37 +200,31 @@ const styles = StyleSheet.create({
     paddingLeft: 12,
     color: 'rgb(115, 115, 115)',
     
-    
   },
   bio: {
     fontFamily: 'Courier',
-    fontSize: 13,
+    fontSize: 20,
     margin: 4,
     paddingLeft: 12,
     padding: 20,
-    
     
     
   },
   fotoPerfil: {
     width: 150,
     height: 150,
-    borderRadius: 75,
     alignSelf: 'center',
     marginBottom: 20,
-    borderRadius: 57.5,
+    backgroundColor: 'white',
+    padding: 15,
+    borderRadius: 10,
+    marginTop: 20,
     
   },
   
   aviso: {
     fontFamily: 'Courier',
-    
-    marginTop: 10,
-    color: 'rgb(115, 115, 115)',
-    fontSize: 15,
-      fontWeight: 'bold',
-      marginBottom: 10,
-    
+    marginTop: 15,
     
   },
   foto:{

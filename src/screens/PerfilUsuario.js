@@ -79,9 +79,9 @@ class PerfilUsuario extends Component {
             renderItem={({ item }) => 
               <View style={profileStyles.postContainer}>
                 <Image style={profileStyles.fotoPerfil} source={{uri:item.data.foto}}resizeMode= 'contain' />
-                <Text>Descripción: {item.data.descripcion}</Text>
-                <Text>Likes: {item.data.likes.length}</Text>
-                <Text>Comentarios: {item.data.comentarios.length}</Text>
+                <Text style={profileStyles.titleUno}>Descripción: {item.data.descripcion}</Text>
+                <Text style={profileStyles.titleUno}>Likes: {item.data.likes.length}</Text>
+                <Text style={profileStyles.titleUno}>Comentarios: {item.data.comentarios.length}</Text>
                 {/* Puedes mostrar más detalles del posteo según tus necesidades */}
               </View>
             }
@@ -98,6 +98,7 @@ const profileStyles = StyleSheet.create({
   container: {
     padding: 20,
     flex: 1,
+    backgroundColor: 'pink',
   },
   header: {
     flexDirection: 'row',
@@ -106,7 +107,20 @@ const profileStyles = StyleSheet.create({
   title: {
     fontFamily: 'Courier',
     fontSize: 18,
-    marginLeft: 10,
+    backgroundColor: 'white',
+    padding: 8,
+    borderRadius: 10,
+    width: 150,
+    
+  },
+  titleUno: {
+    fontFamily: 'Courier',
+    fontSize: 18,
+    backgroundColor: 'white',
+    padding: 8,
+    borderRadius: 10,
+    marginTop: 20,
+    width: 200,
   },
   info: {
     fontFamily: 'Courier',
@@ -114,12 +128,19 @@ const profileStyles = StyleSheet.create({
     margin: 4,
     paddingLeft: 12,
     color: 'rgb(115, 115, 115)',
+    width:200,
+
   },
   bio: {
     fontFamily: 'Courier',
     fontSize: 13,
     margin: 4,
     paddingLeft: 12,
+    marginLeft: 10,
+    backgroundColor: 'white',
+    padding: 8,
+    borderRadius: 10,
+    marginTop: 35,
   },
   profileImage: {
     height: 115,
@@ -131,6 +152,7 @@ const profileStyles = StyleSheet.create({
     fontFamily: 'Courier',
     fontSize: 13,
     marginTop: 10,
+    
   },
   postContainer: {
     heigth:100,
@@ -138,6 +160,7 @@ const profileStyles = StyleSheet.create({
     marginTop: 10,
     padding: 10,
     borderRadius: 10,
+    
   },
   fotoPerfil:{
     width: 115,
