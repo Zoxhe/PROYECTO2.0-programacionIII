@@ -14,7 +14,7 @@ class Posteo extends Component {
   }
 
   componentDidMount() {
-    //Chequear que mi like en un posteo como usuario no se pueda volver a poner
+    // Chequear que mi like en un posteo como usuario no se pueda volver a poner
     if (this.props.posteoData.data.likes.includes(auth.currentUser.email)) {
       this.setState({
         miLike: true,
@@ -22,15 +22,14 @@ class Posteo extends Component {
     }
   }
 
-  //Funcionalidad de like
+  // Funcionalidad de like
   like() {
-    //Acceder al array de likes, y si puedo darle like, entonces le sumo uno al numerito
+    // Acceder al array de likes, y si puedo darle like, entonces le sumo uno al numerito
     db.collection("posts")
       .doc(this.props.posteoData.id)
       .update({
         likes: firebase.firestore.FieldValue.arrayUnion(auth.currentUser.email),
       })
-      //Hacemos un then porque el "update" es una promesa, que puede pasar como no puede pasar, si pasa...entonces se ejecuta el then
       .then(() =>
         this.setState({
           numeroLikes: this.state.numeroLikes + 1,
@@ -40,15 +39,14 @@ class Posteo extends Component {
       .catch((error) => console.log(error));
   }
 
-  //Funcionalidad que te saca el like (unlike)
+  // Funcionalidad que te saca el like (unlike)
   dislike() {
-    //Acceder al array de likes, y si puedo darle like, entonces le sumo uno al numerito
+    // Acceder al array de likes, y si puedo darle like, entonces le sumo uno al numerito
     db.collection("posts")
       .doc(this.props.posteoData.id)
       .update({
         likes: firebase.firestore.FieldValue.arrayRemove(auth.currentUser.email),
       })
-      //Hacemos un then porque el "update" es una promesa, que puede pasar como no puede pasar, si pasa...entonces se ejecuta el then
       .then(() =>
         this.setState({
           numeroLikes: this.state.numeroLikes - 1,
@@ -58,19 +56,25 @@ class Posteo extends Component {
       .catch((error) => console.log(error));
   }
 
-  //En caso de poder eliminar el posteo usamos esta funcion
+  // En caso de poder eliminar el posteo usamos esta funcion
   borrarPosteo() {
     confirm("Seguro que quieres borrar esta publicacion")
-      ? db.collection("posts").doc(this.props.posteoData.id).delete()
-      : console.log("No se borro la publicacion");
+    ? db.collection("posts").doc(this.props.posteoData.id).delete()
+    : console.log("No se borro la publicacion");
   }
-
+  
+  verPerfil(email) {
+    const isMiPerfil = email === auth.currentUser.email;
+    this.props.navigation.navigate(isMiPerfil ? "MiPerfil" : "PerfilUsuario", { email });
+  }
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
           <Image style={styles.avatar} source={{ uri: this.props.posteoData.data.avatar }} />
-          <Text style={styles.username}>{this.props.posteoData.data.username}</Text>
+          <TouchableOpacity onPress={() => this.verPerfil(this.props.posteoData.data.email)}>
+            <Text style={styles.username}>{this.props.posteoData.data.email}</Text>
+          </TouchableOpacity>
         </View>
 
         <Image style={styles.imagen} source={{ uri: this.props.posteoData.data.foto }} resizeMode="cover" />
@@ -96,7 +100,10 @@ class Posteo extends Component {
           keyExtractor={(oneComment) => oneComment.createdAt.toString()}
           renderItem={({ item }) => (
             <Text style={styles.comment}>
-              <Text style={styles.commentAuthor}>{item.email}:</Text> {item.comentario}
+              <TouchableOpacity onPress={() => this.verPerfil(item.email)}>
+                <Text style={styles.commentAuthor}>{item.email}:</Text>
+              </TouchableOpacity>{" "}
+              {item.comentario}
             </Text>
           )}
         />
@@ -114,20 +121,21 @@ class Posteo extends Component {
       </View>
     );
   }
+
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "#fff",
-        margin: 10,
-        borderRadius: 10,
-        borderWidth: 1,
-        borderColor: "#ddd",
-        overflow: "hidden",
-        width: "45%", 
-        alignSelf: "center", 
-      },
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    margin: 10,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#ddd",
+    overflow: "hidden",
+    width: "45%",
+    alignSelf: "center",
+  },
   header: {
     flexDirection: "row",
     alignItems: "center",
@@ -142,6 +150,7 @@ const styles = StyleSheet.create({
   username: {
     fontSize: 16,
     fontWeight: "bold",
+    color: "black",
   },
   imagen: {
     height: 200,
