@@ -178,6 +178,16 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     
   },
+  textButton: {
+    fontFamily: 'Courier',
+    
+    marginTop: 10,
+    color: 'rgb(115, 115, 115)',
+    fontSize: 15,
+      fontWeight: 'bold',
+      marginBottom: 10,
+
+  },
   info: {
     fontFamily: 'Courier',
     fontSize: 11,
@@ -192,21 +202,29 @@ const styles = StyleSheet.create({
     fontSize: 13,
     margin: 4,
     paddingLeft: 12,
+    padding: 20,
+    
+    
     
   },
   fotoPerfil: {
-    width: 115,
-    height: 115,
-    marginLeft: 15,
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    alignSelf: 'center',
+    marginBottom: 20,
     borderRadius: 57.5,
     
   },
   
   aviso: {
     fontFamily: 'Courier',
-    fontSize: 13,
+    
     marginTop: 10,
     color: 'rgb(115, 115, 115)',
+    fontSize: 15,
+      fontWeight: 'bold',
+      marginBottom: 10,
     
     
   },
