@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image, FlatList, StyleSheet, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, Image, FlatList, StyleSheet, TextInput, } from 'react-native';
 import { auth, db } from '../firebase/config';
 import firebase from 'firebase';
 
@@ -12,7 +12,7 @@ class MiPerfil extends Component {
       miniBio: '',
       fotoPerfil: '',
       arrayPosteos: [],
-      nuevaPassword: "",
+      nuevaPassword: '',
     };
   }
 
@@ -84,22 +84,24 @@ class MiPerfil extends Component {
 
 }
 
-  cambiarContra(nuevaContra) {
-    const user = auth.currentUser;
-
-    user.updatePassword(nuevaContra).then(() => {
-      console.log("Se cambio la contraseña con exito")
-      // Contraseña.
+  cambiarContra=()=> {
+    const user = firebase.auth().currentUser;
+    const newPassword = this.state.nuevaPassword;
+    
+    user.updatePassword(newPassword).then(() => {
+      // Update successful.
+      console.log("se cambio la contra")
     }).catch((error) => {
       console.log(error)
-      // An error ocurred
       // ...
     });
+
+  
 }
 
 
   render() {
-    console.log(this.state.arrayPosteos)
+    console.log(auth.currentUser)
     return (
       <View style={styles.container}>
 
@@ -149,9 +151,8 @@ class MiPerfil extends Component {
         <TouchableOpacity onPress={() => this.signOut()}>
           <Text>Cerrar sesión</Text>
         </TouchableOpacity>
-
-        <TextInput value= {this.state.nuevaPassword} placeholder="Texto" onChangeText={(texto) => this.setState({ nuevaPassword:texto })} />
-        <TouchableOpacity  style={styles.borrar} onPress={()=>this.cambiarContra(this.state.nuevaPassword)}>
+        <TextInput  placeholder="Constraseña Nueva" secureTextEntry={true} value= {this.state.nuevaPassword} onChangeText={text => {this.setState({ nuevaPassword:text })}} />
+        <TouchableOpacity  style={styles.borrar} onPress={()=>this.cambiarContra()}>
               <Text style = { styles.textButton }>Cambiar Contraseña</Text>
         </TouchableOpacity>
       </View>

@@ -34,8 +34,8 @@ class PerfilUsuario extends Component {
       });
 
     // Obtener posteos del usuario
-    db.collection('posteos')
-      .where('creador', '==', email)
+    db.collection('posts')
+      .where('email', '==', email)
       .onSnapshot((docs) => {
         let posteos = [];
         docs.forEach((doc) => {
@@ -76,12 +76,15 @@ class PerfilUsuario extends Component {
           <FlatList
             data={this.state.posteos}
             keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
+            renderItem={({ item }) => 
               <View style={profileStyles.postContainer}>
-                <Text>{item.data.titulo}</Text>
+                <Image style={profileStyles.fotoPerfil} source={{uri:item.data.foto}}resizeMode= 'contain' />
+                <Text>Descripción: {item.data.descripcion}</Text>
+                <Text>Likes: {item.data.likes.length}</Text>
+                <Text>Comentarios: {item.data.comentarios.length}</Text>
                 {/* Puedes mostrar más detalles del posteo según tus necesidades */}
               </View>
-            )}
+            }
           />
         ) : (
           <Text style={profileStyles.notice}> Aun no hay publicaciones</Text>
@@ -130,10 +133,17 @@ const profileStyles = StyleSheet.create({
     marginTop: 10,
   },
   postContainer: {
+    heigth:100,
+    width:100,
     marginTop: 10,
     padding: 10,
     borderRadius: 10,
   },
+  fotoPerfil:{
+    width: 115,
+    height: 115,
+    marginLeft: 15,
+  }
 });
 
 export default PerfilUsuario;
