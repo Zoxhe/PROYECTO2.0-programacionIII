@@ -51,6 +51,7 @@ class PerfilUsuario extends Component {
   }
 
   render() {
+    console.log(this.state.posteos)
     return (
       <View style={profileStyles.container}>
         <View style={profileStyles.header}>

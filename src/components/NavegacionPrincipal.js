@@ -6,7 +6,8 @@ import Registro from '../screens/Registro';
 import Login from '../screens/Login';
 import CrearPosteo from '../screens/CrearPosteo';
 import NavegacionTab from './NavegacionTab';
-import Comments from "../screens/Comments"
+import Comments from "../screens/Comments";
+import PerfilUsuario from "../screens/PerfilUsuario";
 // import { auth, db } from '../firebase/config';
 
 const Stack = createNativeStackNavigator();
@@ -28,6 +29,7 @@ class NavegacionPrincipal extends Component {
                     <Stack.Screen name="NavegacionTab" component={NavegacionTab} options={{ headerShown: false }} />
                     <Stack.Screen name="CrearPosteo" component={CrearPosteo} options={{ headerShown: false }} />
                     <Stack.Screen name="Comments" component={Comments} options={{ headerShown: false }} />
+                    <Stack.Screen name="PerfilUsuario" component={PerfilUsuario} />
                 </Stack.Navigator>
             </NavigationContainer>
         )

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image, FlatList, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Image, FlatList, StyleSheet, TextInput } from 'react-native';
 import { auth, db } from '../firebase/config';
+import firebase from 'firebase';
 
 class MiPerfil extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class MiPerfil extends Component {
       miniBio: '',
       fotoPerfil: '',
       arrayPosteos: [],
+      nuevaPassword: "",
     };
   }
 
@@ -40,8 +42,8 @@ class MiPerfil extends Component {
         );
 
       // Obtener posteos del usuario
-      db.collection('posteos')
-        .where('creador', '==', currentUser.email)
+      db.collection('posts')
+        .where('email', '==', currentUser.email)
         .onSnapshot(
           (docs) => {
             let posteos = [];
@@ -73,9 +75,34 @@ class MiPerfil extends Component {
       });
   }
 
+  borrarPost(IdBorrar){
+    db.collection('posts').doc(IdBorrar).delete().then(() => {
+        console.log("Documento eliminado!");
+    }).catch((error) => {
+        console.error("Error eliminando documento: ", error);
+    });
+
+}
+
+  cambiarContra(nuevaContra) {
+    const user = auth.currentUser;
+
+    user.updatePassword(nuevaContra).then(() => {
+      console.log("Se cambio la contraseña con exito")
+      // Contraseña.
+    }).catch((error) => {
+      console.log(error)
+      // An error ocurred
+      // ...
+    });
+}
+
+
   render() {
+    console.log(this.state.arrayPosteos)
     return (
       <View style={styles.container}>
+
         <View style={styles.header}>
           {this.state.fotoPerfil ? (
             <Image style={styles.fotoPerfil} source={{ uri: this.state.fotoPerfil }} />
@@ -99,7 +126,21 @@ class MiPerfil extends Component {
           <FlatList
             data={this.state.arrayPosteos}
             keyExtractor={(item) => item.id}
-            renderItem={({ item }) => <Text>{item.data.titulo}</Text>}
+            renderItem={({ item }) => 
+
+          <View style={styles.contenedordefoto}>
+
+            <Image style={styles.foto} source={{ uri: item.data.foto }} />
+            <Text> Descripcion: {item.data.descripcion}</Text>
+            <Text> Comentarios: {item.data.comentarios.length}</Text>
+            <Text> Likes: {item.data.likes.length}</Text>
+          
+            <TouchableOpacity  style={styles.borrar} onPress={()=>this.borrarPost(item.id)}>
+              <Text style = { styles.textButton }>Borrar</Text>
+            </TouchableOpacity>
+            {console.log(item)}
+          </View>}
+
           />
         ) : (
           <Text style={styles.aviso}> Aun no hay publicaciones</Text>
@@ -107,6 +148,11 @@ class MiPerfil extends Component {
 
         <TouchableOpacity onPress={() => this.signOut()}>
           <Text>Cerrar sesión</Text>
+        </TouchableOpacity>
+
+        <TextInput value= {this.state.nuevaPassword} placeholder="Texto" onChangeText={(texto) => this.setState({ nuevaPassword:texto })} />
+        <TouchableOpacity  style={styles.borrar} onPress={()=>this.cambiarContra(this.state.nuevaPassword)}>
+              <Text style = { styles.textButton }>Cambiar Contraseña</Text>
         </TouchableOpacity>
       </View>
     );
@@ -153,6 +199,14 @@ const styles = StyleSheet.create({
     fontSize: 13,
     marginTop: 10,
   },
+  foto:{
+    width: 115,
+    height: 115,
+    marginLeft: 15,
+  },
+  contenedordefoto:{
+    marginVertical: 20, 
+  }
 });
 
 export default MiPerfil;

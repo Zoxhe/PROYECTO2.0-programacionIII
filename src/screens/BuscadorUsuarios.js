@@ -54,10 +54,10 @@ class BuscadorUsuarios extends Component {
   }
 
   irAPerfil(item) {
-    if (item.data.email === auth.currentUser.email) {
+    if (item === auth.currentUser.email) {
       this.props.navigation.navigate('MiPerfil');
     } else {
-      this.props.navigation.navigate('PerfilUsuario', { email: item.data.email });
+      this.props.navigation.navigate('PerfilUsuario', { email: item });
     }
   }
 
@@ -84,8 +84,10 @@ class BuscadorUsuarios extends Component {
             data={this.state.resultados}
             keyExtractor={(unusuario) => unusuario.id.toString()}
             renderItem={({ item }) => (
-              <TouchableOpacity onPress={() => this.irAPerfil(item)}>
+             
+              <TouchableOpacity onPress={() => this.irAPerfil(item.data.email)}>
                 <Text style={styles.lista}>{item.data.email}</Text>
+                {console.log(item)}
               </TouchableOpacity>
             )}
           />

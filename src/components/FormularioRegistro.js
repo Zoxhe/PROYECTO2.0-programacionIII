@@ -13,6 +13,7 @@ class FormularioRegistro extends Component {
       miniBio: '',
       fotoPerfil: '',
       mostrarCamara: false,
+      errors: ""
     };
   }
 
@@ -42,9 +43,9 @@ class FormularioRegistro extends Component {
             console.log(error);
           });
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch(error => this.setState({
+        errors: `El error que tenés es: ${error.message}`
+      }));
   }
 
   onImageUpload(url) {
@@ -57,7 +58,9 @@ class FormularioRegistro extends Component {
   render() {
     return (
       <View style={styles.container}>
+
         <Text style={styles.title}>Inicia sesion</Text>
+        <Text style={styles.errors}>{this.state.errors}</Text>
 
         <TextInput
           style={styles.input}
@@ -95,7 +98,11 @@ class FormularioRegistro extends Component {
         )}
 
         {this.state.email === "" || this.state.password === "" || this.state.nombre === "" ? (
-          <TouchableOpacity disabled={true} style={styles.buttonDisabled}>
+          <TouchableOpacity  style={styles.buttonDisabled} onPress={()=>{
+            this.setState({
+              errors: "Por favor, completa todos los campos obligatorios (Email, Password, y Username)."
+            })
+          }} >
             <Text style={styles.buttonText}>Registrarme</Text>
           </TouchableOpacity>
         ) : (
@@ -138,6 +145,12 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: 'center',
   },
+  errors: {
+    fontSize: 22,
+    textAlign: 'center',
+    margin: 10,
+    color: 'rgb(217,33,33)'
+},
   input: {
     height: 40,
     borderColor: 'gray',
