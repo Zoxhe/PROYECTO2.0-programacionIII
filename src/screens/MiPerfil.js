@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image, FlatList, StyleSheet, TextInput, } from 'react-native';
+import { View, Text, TouchableOpacity, Image, FlatList, StyleSheet, TextInput, ScrollView, } from 'react-native';
 import { auth, db } from '../firebase/config';
 import firebase from 'firebase';
 
@@ -84,6 +84,7 @@ class MiPerfil extends Component {
 
 }
 
+
   cambiarContra=()=> {
     const user = firebase.auth().currentUser;
     const newPassword = this.state.nuevaPassword;
@@ -98,11 +99,28 @@ class MiPerfil extends Component {
 
   
 }
+deleteUser(id) {
+  const user = auth.currentUser;
+  user.delete()
+    .then(() => {
+      console.log('Su usuario ha sido eliminado');
+    })
+    .then(() => {
+      db.collection('users').doc(id).delete()
+      this.props.navigation.navigate("Login")
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+}
+
 
 
   render() {
     console.log(auth.currentUser)
     return (
+      <ScrollView>
+      
       <View style={styles.container}>
 
         <View style={styles.header}>
@@ -138,9 +156,9 @@ class MiPerfil extends Component {
             <Text> Likes: {item.data.likes.length}</Text>
           
             <TouchableOpacity  style={styles.borrar} onPress={()=>this.borrarPost(item.id)}>
-              <Text style = { styles.textButton }>Borrar</Text>
+              <Text style = { styles.textButton}>Borrar Posteo</Text>
             </TouchableOpacity>
-            {console.log(item)}
+        
           </View>}
 
           />
@@ -148,14 +166,24 @@ class MiPerfil extends Component {
           <Text style={styles.aviso}> Aun no hay publicaciones</Text>
         )}
 
-        <TouchableOpacity onPress={() => this.signOut()}>
-          <Text style={styles.title}>Cerrar sesión</Text>
-        </TouchableOpacity>
-        <TextInput  placeholder="Constraseña Nueva" secureTextEntry={true} value= {this.state.nuevaPassword} onChangeText={text => {this.setState({ nuevaPassword:text })}} />
-        <TouchableOpacity  style={styles.borrar} onPress={()=>this.cambiarContra()}>
-              <Text style = { styles.textButton }>Cambiar Contraseña</Text>
-        </TouchableOpacity>
+          <TouchableOpacity  style={styles.borrar} onPress={()=>this.cambiarContra()}>
+          <Text style = { styles.textButton }>Cambiar Contraseña</Text>
+            <TextInput  placeholder="Constraseña Nueva" secureTextEntry={true} value= {this.state.nuevaPassword} onChangeText={text => {this.setState({ nuevaPassword:text })}} />
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => this.deleteUser(this.state.id)}>
+            <Text style={styles.title}>Delete user</Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity onPress={() => this.signOut()}>
+            <Text style={styles.title}>Cerrar sesión</Text>
+          </TouchableOpacity>
+
+        
+      
+      
       </View>
+      </ScrollView>
     );
   }
 }
@@ -184,6 +212,8 @@ const styles = StyleSheet.create({
     
     
   },
+
+  
   textButton: {
     fontFamily: 'Courier',
     backgroundColor: 'white',
@@ -193,6 +223,7 @@ const styles = StyleSheet.create({
     marginTop: 25,
 
   },
+
   info: {
     fontFamily: 'Courier',
     fontSize: 11,
@@ -236,7 +267,9 @@ const styles = StyleSheet.create({
   contenedordefoto:{
     marginVertical: 20, 
     
-  }
+  },
+  
+ 
 });
 
 export default MiPerfil;

@@ -49,7 +49,7 @@ class CrearPosteo extends Component {
   }
 
   componentWillUnmount() {
-    // Restablecer el estado de la cámara cuando el componente se desmonta
+    // Restablecer el estado de la cámara
     this.setState({
       mostrarCamara: true,
     });

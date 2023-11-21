@@ -56,12 +56,7 @@ class Posteo extends Component {
       .catch((error) => console.log(error));
   }
 
-  // En caso de poder eliminar el posteo usamos esta funcion
-  borrarPosteo() {
-    confirm("Seguro que quieres borrar esta publicacion")
-    ? db.collection("posts").doc(this.props.posteoData.id).delete()
-    : console.log("No se borro la publicacion");
-  }
+  
   
   verPerfil(email) {
     const isMiPerfil = email === auth.currentUser.email;

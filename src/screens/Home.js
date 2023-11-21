@@ -49,10 +49,10 @@ class Home extends Component {
 const styles = StyleSheet.create({
     contenedor: {
         flex: 1,
-        backgroundColor: "#F5B7B1", // Color de fondo
+        backgroundColor: "#F5B7B1", 
         padding: 10,
     },
-    // Puedes agregar más estilos según tus necesidades
+    
 });
 
 export default Home;

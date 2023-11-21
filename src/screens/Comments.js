@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       padding: 10,
-      backgroundColor: "#FFC0CB",  // Cambia el color de fondo a rosa
+      backgroundColor: "#FFC0CB",  
     },
   
   backButton: {
